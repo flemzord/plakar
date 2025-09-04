@@ -27,6 +27,7 @@ func (s *Scheduler) backupTask(taskset Task, task BackupConfig) {
 	}
 
 	rmSubcommand := &rm.Rm{}
+	rmSubcommand.Apply = true
 	rmSubcommand.Flags = subcommands.AgentSupport
 	rmSubcommand.LocateOptions = locate.NewDefaultLocateOptions(locate.WithJob(task.Name))
 
@@ -36,6 +37,23 @@ func (s *Scheduler) backupTask(taskset Task, task BackupConfig) {
 		case <-s.ctx.Done():
 			return
 		case <-tick:
+
+			var excludes []string
+			if task.IgnoreFile != "" {
+				lines, err := backup.LoadIgnoreFile(task.IgnoreFile)
+				if err != nil {
+					s.ctx.GetLogger().Error("Failed to load ignore file: %s", err)
+					continue
+				}
+				for _, line := range lines {
+					excludes = append(excludes, line)
+				}
+			}
+			for _, line := range task.Ignore {
+				excludes = append(excludes, line)
+			}
+			backupSubcommand.Excludes = excludes
+
 			storeConfig, err := s.ctx.Config.GetRepository(taskset.Repository)
 			if err != nil {
 				s.ctx.GetLogger().Error("Error getting repository config: %s", err)
@@ -169,6 +187,7 @@ func (s *Scheduler) maintenanceTask(task MaintenanceConfig) {
 	maintenanceSubcommand := &maintenance.Maintenance{}
 	maintenanceSubcommand.Flags = subcommands.AgentSupport
 	rmSubcommand := &rm.Rm{}
+	rmSubcommand.Apply = true
 	rmSubcommand.Flags = subcommands.AgentSupport
 	rmSubcommand.LocateOptions = locate.NewDefaultLocateOptions(locate.WithJob("maintenance"))
 
