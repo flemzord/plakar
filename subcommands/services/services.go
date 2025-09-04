@@ -26,6 +26,7 @@ import (
 )
 
 func init() {
+	subcommands.Register(func() subcommands.Subcommand { return &ServicesList{} }, subcommands.AgentSupport, "services", "list")
 	subcommands.Register(func() subcommands.Subcommand { return &ServicesStatus{} }, subcommands.AgentSupport, "services", "status")
 	subcommands.Register(func() subcommands.Subcommand { return &ServicesEnable{} }, subcommands.AgentSupport, "services", "enable")
 	subcommands.Register(func() subcommands.Subcommand { return &ServicesDisable{} }, subcommands.AgentSupport, "services", "disable")
@@ -39,7 +40,7 @@ type Services struct {
 func (_ *Services) Parse(ctx *appcontext.AppContext, args []string) error {
 	flags := flag.NewFlagSet("services", flag.ExitOnError)
 	flags.Usage = func() {
-		fmt.Fprintf(flags.Output(), "Usage: %s status | enable | disable\n", flags.Name())
+		fmt.Fprintf(flags.Output(), "Usage: %s list | status | enable | disable\n", flags.Name())
 	}
 	flags.Parse(args)
 
