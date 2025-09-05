@@ -584,7 +584,7 @@ func listCmds(out io.Writer, prefix string) {
 
 	all := subcommands.List()
 	for _, cmd := range all {
-		if len(cmd) == 0 {
+		if len(cmd) == 0 || cmd[0] == "diag" {
 			continue
 		}
 
