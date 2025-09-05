@@ -53,8 +53,8 @@ func (cmd *ServicesList) Execute(ctx *appcontext.AppContext, repo *repository.Re
 	if err != nil {
 		return 1, err
 	}
-	for _, name := range list {
-		fmt.Fprintf(ctx.Stdout, "%s\n", name)
+	for _, svc := range list {
+		fmt.Fprintf(ctx.Stdout, "%s\n", svc.Name)
 	}
 
 	return 0, nil
