@@ -32,7 +32,7 @@ type ServicesList struct {
 func (cmd *ServicesList) Parse(ctx *appcontext.AppContext, args []string) error {
 	flags := flag.NewFlagSet("services list", flag.ExitOnError)
 	flags.Usage = func() {
-		fmt.Fprintf(flags.Output(), "Usage: %s\n")
+		fmt.Fprintf(flags.Output(), "Usage: %s\n", flags.Name())
 	}
 	flags.Parse(args)
 
