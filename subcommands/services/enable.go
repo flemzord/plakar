@@ -22,7 +22,6 @@ import (
 
 	"github.com/PlakarKorp/kloset/repository"
 	"github.com/PlakarKorp/plakar/appcontext"
-	"github.com/PlakarKorp/plakar/services"
 	"github.com/PlakarKorp/plakar/subcommands"
 )
 
@@ -33,9 +32,9 @@ type ServicesEnable struct {
 }
 
 func (cmd *ServicesEnable) Parse(ctx *appcontext.AppContext, args []string) error {
-	flags := flag.NewFlagSet("services-enable", flag.ExitOnError)
+	flags := flag.NewFlagSet("services enable", flag.ExitOnError)
 	flags.Usage = func() {
-		fmt.Fprintf(flags.Output(), "Usage: service enable SERVICE_NAME\n")
+		fmt.Fprintf(flags.Output(), "Usage: %s <name>\n", flags.Name())
 	}
 	flags.Parse(args)
 
@@ -50,16 +49,12 @@ func (cmd *ServicesEnable) Parse(ctx *appcontext.AppContext, args []string) erro
 }
 
 func (cmd *ServicesEnable) Execute(ctx *appcontext.AppContext, repo *repository.Repository) (int, error) {
-	authToken, err := ctx.GetCookies().GetAuthToken()
+	sc, err := getClient(ctx)
 	if err != nil {
 		return 1, err
-	} else if authToken == "" {
-		return 1, fmt.Errorf("access to services requires login, please run `plakar login`")
 	}
 
-	sc := services.NewServiceConnector(ctx, authToken)
-	err = sc.SetServiceStatus(cmd.Service, true)
-	if err != nil {
+	if err := sc.SetServiceStatus(cmd.Service, true); err != nil {
 		return 1, err
 	}
 	fmt.Fprintf(ctx.Stdout, "enabled\n")

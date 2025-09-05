@@ -22,7 +22,6 @@ import (
 
 	"github.com/PlakarKorp/kloset/repository"
 	"github.com/PlakarKorp/plakar/appcontext"
-	"github.com/PlakarKorp/plakar/services"
 	"github.com/PlakarKorp/plakar/subcommands"
 )
 
@@ -33,9 +32,9 @@ type ServicesStatus struct {
 }
 
 func (cmd *ServicesStatus) Parse(ctx *appcontext.AppContext, args []string) error {
-	flags := flag.NewFlagSet("services-status", flag.ExitOnError)
+	flags := flag.NewFlagSet("services status", flag.ExitOnError)
 	flags.Usage = func() {
-		fmt.Fprintf(flags.Output(), "Usage: service status SERVICE_NAME\n")
+		fmt.Fprintf(flags.Output(), "Usage: %s <name>\n", flags.Name())
 	}
 	flags.Parse(args)
 
@@ -50,14 +49,11 @@ func (cmd *ServicesStatus) Parse(ctx *appcontext.AppContext, args []string) erro
 }
 
 func (cmd *ServicesStatus) Execute(ctx *appcontext.AppContext, repo *repository.Repository) (int, error) {
-	authToken, err := ctx.GetCookies().GetAuthToken()
+	sc, err := getClient(ctx)
 	if err != nil {
 		return 1, err
-	} else if authToken == "" {
-		return 1, fmt.Errorf("access to services requires login, please run `plakar login`")
 	}
 
-	sc := services.NewServiceConnector(ctx, authToken)
 	status, err := sc.GetServiceStatus(cmd.Service)
 	if err != nil {
 		return 1, err
@@ -66,20 +62,6 @@ func (cmd *ServicesStatus) Execute(ctx *appcontext.AppContext, repo *repository.
 		fmt.Fprintf(ctx.Stdout, "status: enabled\n")
 	} else {
 		fmt.Fprintf(ctx.Stdout, "status: disabled\n")
-	}
-
-	config, err := sc.GetServiceConfiguration(cmd.Service)
-	if err != nil {
-		return 1, err
-	}
-	if len(config) == 0 {
-		fmt.Fprintf(ctx.Stdout, "no configuration\n")
-		return 0, nil
-	}
-	fmt.Fprintf(ctx.Stdout, "\n")
-	fmt.Fprintf(ctx.Stdout, "configuration:\n")
-	for k, v := range config {
-		fmt.Fprintf(ctx.Stdout, "- %s: %s\n", k, v)
 	}
 	return 0, nil
 }
