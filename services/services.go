@@ -26,6 +26,10 @@ func NewServiceConnector(ctx *appcontext.AppContext, authToken string) *ServiceC
 	}
 }
 
+func (sc *ServiceConnector) GetServiceList() ([]string, error) {
+	return []string{"alerting"}, nil
+}
+
 func (sc *ServiceConnector) GetServiceStatus(name string) (bool, error) {
 	uri := fmt.Sprintf("/v1/account/services/%s", name)
 	url := fmt.Sprintf("%s%s", sc.endpoint, uri)

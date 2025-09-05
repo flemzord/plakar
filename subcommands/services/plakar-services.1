@@ -6,8 +6,9 @@
 .Nd Manage optional Plakar-connected services
 .Sh SYNOPSIS
 .Nm plakar services
-.Op Cm status | enable | disable
-.Ar service_name
+.Cm list
+.Nm plakar services
+.Op Cm status | enable | disable Ar service_name
 .Sh DESCRIPTION
 The
 .Nm plakar services
@@ -38,6 +39,8 @@ Expose the latest alerting reports in the Plakar UI
 By default, all services are disabled.
 .Sh SUBCOMMANDS
 .Bl -tag -width Ds
+.It Ar list
+Display the list of available services.
 .It Ar status Ar service_name
 Display the current configuration status (enabled or disabled) of the named
 service.
