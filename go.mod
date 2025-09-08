@@ -4,11 +4,11 @@ go 1.24.0
 
 require (
 	github.com/PlakarKorp/go-human2duration v0.1.6
-	github.com/PlakarKorp/integration-fs v1.0.7
+	github.com/PlakarKorp/integration-fs v1.0.6
 	github.com/PlakarKorp/integration-grpc v1.0.13
-	github.com/PlakarKorp/integration-ptar v1.0.1
-	github.com/PlakarKorp/integration-stdio v1.0.1
-	github.com/PlakarKorp/kloset v1.0.4
+	github.com/PlakarKorp/integration-ptar v1.0.0
+	github.com/PlakarKorp/integration-stdio v1.0.0
+	github.com/PlakarKorp/kloset v1.0.5
 	github.com/alecthomas/chroma v0.10.0
 	github.com/anacrolix/fuse v0.3.1
 	github.com/charmbracelet/bubbletea v1.3.6
@@ -40,8 +40,6 @@ require (
 require (
 	github.com/DataDog/zstd v1.5.7 // indirect
 	github.com/PlakarKorp/go-cdc-chunkers v1.0.2 // indirect
-	github.com/RaduBerinde/axisds v0.0.0-20250419182453-5135a0650657 // indirect
-	github.com/RaduBerinde/btreemap v0.0.0-20250419232817-bf0d809ae648 // indirect
 	github.com/alecthomas/chroma/v2 v2.15.0 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
@@ -55,8 +53,9 @@ require (
 	github.com/charmbracelet/x/term v0.2.1 // indirect
 	github.com/cockroachdb/crlib v0.0.0-20250718215705-7ff5051265b9 // indirect
 	github.com/cockroachdb/errors v1.12.0 // indirect
+	github.com/cockroachdb/fifo v0.0.0-20240816210425-c5d0cb0b6fc0 // indirect
 	github.com/cockroachdb/logtags v0.0.0-20241215232642-bb51bb14a506 // indirect
-	github.com/cockroachdb/pebble/v2 v2.1.0 // indirect
+	github.com/cockroachdb/pebble/v2 v2.0.7 // indirect
 	github.com/cockroachdb/redact v1.1.6 // indirect
 	github.com/cockroachdb/swiss v0.0.0-20250624142022-d6e517c1d961 // indirect
 	github.com/cockroachdb/tokenbucket v0.0.0-20250429170803-42689b6311bb // indirect
@@ -85,7 +84,6 @@ require (
 	github.com/mattn/go-localereader v0.0.1 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.27 // indirect
-	github.com/minio/minlz v1.0.1 // indirect
 	github.com/muesli/ansi v0.0.0-20230316100256-276c6243b2f6 // indirect
 	github.com/muesli/cancelreader v0.2.2 // indirect
 	github.com/muesli/reflow v0.3.0 // indirect
