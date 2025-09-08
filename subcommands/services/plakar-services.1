@@ -5,10 +5,15 @@
 .Nm plakar-services
 .Nd Manage optional Plakar-connected services
 .Sh SYNOPSIS
-.Nm plakar services
-.Cm list
-.Nm plakar services
-.Op Cm status | enable | disable Ar service_name
+.Nm plakar services Cm list
+.Nm plakar services Cm add Ar name Op key=value ...
+.Nm plakar services Cm rm Ar name
+.Nm plakar services Cm status Ar name
+.Nm plakar services Cm show Ar name
+.Nm plakar services Cm enable Ar name
+.Nm plakar services Cm disable Ar name
+.Nm plakar services Cm set Ar name Op key=value ...
+.Nm plakar services Cm unset Ar name Op key ...
 .Sh DESCRIPTION
 The
 .Nm plakar services
@@ -39,15 +44,43 @@ Expose the latest alerting reports in the Plakar UI
 By default, all services are disabled.
 .Sh SUBCOMMANDS
 .Bl -tag -width Ds
-.It Ar list
+.It Cm list
 Display the list of available services.
-.It Ar status Ar service_name
-Display the current configuration status (enabled or disabled) of the named
+.It Cm add Ar name Op key=value ...
+Set the configuration for the service identified by
+.Ar name
+and enable it.
+The configuration is defined by the given set of
+.Ar key/value
+pairs.
+The existing configuration, if any, is discarded.
+.It Cm rm Ar name
+Disable the service identified by
+.Ar name
+and discard its configuration.
+.It Cm status Ar name
+Display the current status (enabled or disabled) of the named
 service.
-.It Ar enable Ar service_name
+.It Cm show Ar name
+Display the configuration for the specified service.
+.It Cm enable Ar name
 Enable the specified service.
-.It Ar disable Ar service_name
+.It Cm disable Ar name
 Disable the specified service.
+.It Cm set Ar name Op key=value ...
+Set the configuration
+.Ar key
+to
+.Ar value
+for the service identified by
+.Ar name .
+Multiple key/value pairs can be specified.
+.It Cm unset Ar name Op key ...
+Unset the configuration
+.Ar key
+for the service identified by
+.Ar name .
+Multiple keys can be specified.
 .El
 .Sh EXAMPLES
 Check the status of the alerting service:
