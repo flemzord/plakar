@@ -6,14 +6,14 @@
 .Nd Manage optional Plakar-connected services
 .Sh SYNOPSIS
 .Nm plakar services Cm list
-.Nm plakar services Cm add Ar name Op key=value ...
+.Nm plakar services Cm add Ar name Op Ar key Ns = Ns Ar value ...
 .Nm plakar services Cm rm Ar name
 .Nm plakar services Cm status Ar name
 .Nm plakar services Cm show Ar name
 .Nm plakar services Cm enable Ar name
 .Nm plakar services Cm disable Ar name
-.Nm plakar services Cm set Ar name Op key=value ...
-.Nm plakar services Cm unset Ar name Op key ...
+.Nm plakar services Cm set Ar name Op Ar key Ns = Ns Ar value ...
+.Nm plakar services Cm unset Ar name Op Ar key ...
 .Sh DESCRIPTION
 The
 .Nm plakar services
@@ -46,12 +46,12 @@ By default, all services are disabled.
 .Bl -tag -width Ds
 .It Cm list
 Display the list of available services.
-.It Cm add Ar name Op key=value ...
+.It Cm add Ar name Op Ar key Ns = Ns Ar value ...
 Set the configuration for the service identified by
 .Ar name
 and enable it.
 The configuration is defined by the given set of
-.Ar key/value
+.Ar key Ns / Ns Ar value
 pairs.
 The existing configuration, if any, is discarded.
 .It Cm rm Ar name
@@ -67,15 +67,17 @@ Display the configuration for the specified service.
 Enable the specified service.
 .It Cm disable Ar name
 Disable the specified service.
-.It Cm set Ar name Op key=value ...
+.It Cm set Ar name Op Ar key Ns = Ns Ar value ...
 Set the configuration
 .Ar key
 to
 .Ar value
 for the service identified by
 .Ar name .
-Multiple key/value pairs can be specified.
-.It Cm unset Ar name Op key ...
+Multiple
+.Ar key Ns / Ns Ar value
+pairs can be specified.
+.It Cm unset Ar name Op Ar key ...
 Unset the configuration
 .Ar key
 for the service identified by
