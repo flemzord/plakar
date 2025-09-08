@@ -25,14 +25,14 @@ import (
 	"github.com/PlakarKorp/plakar/subcommands"
 )
 
-type ServicesStatus struct {
+type ServiceEnable struct {
 	subcommands.SubcommandBase
 
 	Service string
 }
 
-func (cmd *ServicesStatus) Parse(ctx *appcontext.AppContext, args []string) error {
-	flags := flag.NewFlagSet("services status", flag.ExitOnError)
+func (cmd *ServiceEnable) Parse(ctx *appcontext.AppContext, args []string) error {
+	flags := flag.NewFlagSet("service enable", flag.ExitOnError)
 	flags.Usage = func() {
 		fmt.Fprintf(flags.Output(), "Usage: %s <name>\n", flags.Name())
 	}
@@ -48,20 +48,16 @@ func (cmd *ServicesStatus) Parse(ctx *appcontext.AppContext, args []string) erro
 	return nil
 }
 
-func (cmd *ServicesStatus) Execute(ctx *appcontext.AppContext, repo *repository.Repository) (int, error) {
+func (cmd *ServiceEnable) Execute(ctx *appcontext.AppContext, repo *repository.Repository) (int, error) {
 	sc, err := getClient(ctx)
 	if err != nil {
 		return 1, err
 	}
 
-	status, err := sc.GetServiceStatus(cmd.Service)
-	if err != nil {
+	if err := sc.SetServiceStatus(cmd.Service, true); err != nil {
 		return 1, err
 	}
-	if status {
-		fmt.Fprintf(ctx.Stdout, "status: enabled\n")
-	} else {
-		fmt.Fprintf(ctx.Stdout, "status: disabled\n")
-	}
+	fmt.Fprintf(ctx.Stdout, "enabled\n")
+
 	return 0, nil
 }

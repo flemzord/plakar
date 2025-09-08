@@ -9,14 +9,14 @@ import (
 	"github.com/PlakarKorp/plakar/subcommands"
 )
 
-type ServicesRm struct {
+type ServiceRm struct {
 	subcommands.SubcommandBase
 
 	Service string
 }
 
-func (cmd *ServicesRm) Parse(ctx *appcontext.AppContext, args []string) error {
-	flags := flag.NewFlagSet("services rm", flag.ExitOnError)
+func (cmd *ServiceRm) Parse(ctx *appcontext.AppContext, args []string) error {
+	flags := flag.NewFlagSet("service rm", flag.ExitOnError)
 	flags.Usage = func() {
 		fmt.Fprintf(flags.Output(), "Usage: %s <name>\n", flags.Name())
 	}
@@ -35,7 +35,7 @@ func (cmd *ServicesRm) Parse(ctx *appcontext.AppContext, args []string) error {
 	return nil
 }
 
-func (cmd *ServicesRm) Execute(ctx *appcontext.AppContext, repo *repository.Repository) (int, error) {
+func (cmd *ServiceRm) Execute(ctx *appcontext.AppContext, repo *repository.Repository) (int, error) {
 	sc, err := getClient(ctx)
 	if err != nil {
 		return 1, err

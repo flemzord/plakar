@@ -25,39 +25,37 @@ import (
 	"github.com/PlakarKorp/plakar/subcommands"
 )
 
-type ServicesEnable struct {
+type ServiceList struct {
 	subcommands.SubcommandBase
-
-	Service string
 }
 
-func (cmd *ServicesEnable) Parse(ctx *appcontext.AppContext, args []string) error {
-	flags := flag.NewFlagSet("services enable", flag.ExitOnError)
+func (cmd *ServiceList) Parse(ctx *appcontext.AppContext, args []string) error {
+	flags := flag.NewFlagSet("service list", flag.ExitOnError)
 	flags.Usage = func() {
-		fmt.Fprintf(flags.Output(), "Usage: %s <name>\n", flags.Name())
+		fmt.Fprintf(flags.Output(), "Usage: %s\n", flags.Name())
 	}
 	flags.Parse(args)
 
-	if flags.NArg() != 1 {
-		return fmt.Errorf("invalid number of arguments, expected 1 but got %d", flags.NArg())
+	if flags.NArg() > 0 {
+		return fmt.Errorf("invalid argument: %s", flags.Arg(0))
 	}
-
-	cmd.Service = flags.Arg(0)
-	cmd.RepositorySecret = ctx.GetSecret()
 
 	return nil
 }
 
-func (cmd *ServicesEnable) Execute(ctx *appcontext.AppContext, repo *repository.Repository) (int, error) {
+func (cmd *ServiceList) Execute(ctx *appcontext.AppContext, repo *repository.Repository) (int, error) {
 	sc, err := getClient(ctx)
 	if err != nil {
 		return 1, err
 	}
 
-	if err := sc.SetServiceStatus(cmd.Service, true); err != nil {
+	list, err := sc.GetServiceList()
+	if err != nil {
 		return 1, err
 	}
-	fmt.Fprintf(ctx.Stdout, "enabled\n")
+	for _, svc := range list {
+		fmt.Fprintf(ctx.Stdout, "%s\n", svc.Name)
+	}
 
 	return 0, nil
 }

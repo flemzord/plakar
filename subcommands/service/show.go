@@ -11,7 +11,7 @@ import (
 	"go.yaml.in/yaml/v3"
 )
 
-type ServicesShow struct {
+type ServiceShow struct {
 	subcommands.SubcommandBase
 
 	AsJson      bool
@@ -20,8 +20,8 @@ type ServicesShow struct {
 	Service     string
 }
 
-func (cmd *ServicesShow) Parse(ctx *appcontext.AppContext, args []string) error {
-	flags := flag.NewFlagSet("services show", flag.ExitOnError)
+func (cmd *ServiceShow) Parse(ctx *appcontext.AppContext, args []string) error {
+	flags := flag.NewFlagSet("service show", flag.ExitOnError)
 	flags.BoolVar(&cmd.AsJson, "json", false, "output in JSON format")
 	flags.BoolVar(&cmd.AsYaml, "yaml", false, "output in YAML format (default)")
 	flags.BoolVar(&cmd.ShowSecrets, "secrets", false, "show secret values instead of ********")
@@ -42,7 +42,7 @@ func (cmd *ServicesShow) Parse(ctx *appcontext.AppContext, args []string) error 
 	return nil
 }
 
-func (cmd *ServicesShow) Execute(ctx *appcontext.AppContext, repo *repository.Repository) (int, error) {
+func (cmd *ServiceShow) Execute(ctx *appcontext.AppContext, repo *repository.Repository) (int, error) {
 	sc, err := getClient(ctx)
 	if err != nil {
 		return 1, err
