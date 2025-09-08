@@ -9,15 +9,15 @@ import (
 	"github.com/PlakarKorp/plakar/subcommands"
 )
 
-type ServicesUnset struct {
+type ServiceUnset struct {
 	subcommands.SubcommandBase
 
 	Service string
 	Keys    []string
 }
 
-func (cmd *ServicesUnset) Parse(ctx *appcontext.AppContext, args []string) error {
-	flags := flag.NewFlagSet("services unset", flag.ExitOnError)
+func (cmd *ServiceUnset) Parse(ctx *appcontext.AppContext, args []string) error {
+	flags := flag.NewFlagSet("service unset", flag.ExitOnError)
 	flags.Usage = func() {
 		fmt.Fprintf(flags.Output(), "Usage: %s <name> <key>...\n", flags.Name())
 	}
@@ -33,7 +33,7 @@ func (cmd *ServicesUnset) Parse(ctx *appcontext.AppContext, args []string) error
 	return nil
 }
 
-func (cmd *ServicesUnset) Execute(ctx *appcontext.AppContext, repo *repository.Repository) (int, error) {
+func (cmd *ServiceUnset) Execute(ctx *appcontext.AppContext, repo *repository.Repository) (int, error) {
 	sc, err := getClient(ctx)
 	if err != nil {
 		return 1, err

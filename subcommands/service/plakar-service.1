@@ -1,22 +1,22 @@
 .Dd August 7, 2025
-.Dt PLAKAR-SERVICES 1
+.Dt PLAKAR-SERVICE 1
 .Os
 .Sh NAME
-.Nm plakar-services
+.Nm plakar-service
 .Nd Manage optional Plakar-connected services
 .Sh SYNOPSIS
-.Nm plakar services Cm list
-.Nm plakar services Cm add Ar name Op Ar key Ns = Ns Ar value ...
-.Nm plakar services Cm rm Ar name
-.Nm plakar services Cm status Ar name
-.Nm plakar services Cm show Ar name
-.Nm plakar services Cm enable Ar name
-.Nm plakar services Cm disable Ar name
-.Nm plakar services Cm set Ar name Op Ar key Ns = Ns Ar value ...
-.Nm plakar services Cm unset Ar name Op Ar key ...
+.Nm plakar service Cm list
+.Nm plakar service Cm add Ar name Op Ar key Ns = Ns Ar value ...
+.Nm plakar service Cm rm Ar name
+.Nm plakar service Cm status Ar name
+.Nm plakar service Cm show Ar name
+.Nm plakar service Cm enable Ar name
+.Nm plakar service Cm disable Ar name
+.Nm plakar service Cm set Ar name Op Ar key Ns = Ns Ar value ...
+.Nm plakar service Cm unset Ar name Op Ar key ...
 .Sh DESCRIPTION
 The
-.Nm plakar services
+.Nm plakar service
 command allows you to enable, disable, and inspect additional services that
 integrate with the
 .Nm plakar
@@ -87,17 +87,17 @@ Multiple keys can be specified.
 .Sh EXAMPLES
 Check the status of the alerting service:
 .Bd -literal -offset indent
-$ plakar services status alerting
+$ plakar service status alerting
 .Ed
 .Pp
 Enable alerting:
 .Bd -literal -offset indent
-$ plakar services enable alerting
+$ plakar service enable alerting
 .Ed
 .Pp
 Disable alerting:
 .Bd -literal -offset indent
-$ plakar services disable alerting
+$ plakar service disable alerting
 .Ed
 .Sh SEE ALSO
 .Xr plakar-login 1 ,

@@ -3,6 +3,7 @@ package services
 import (
 	"flag"
 	"fmt"
+	"maps"
 	"strings"
 
 	"github.com/PlakarKorp/kloset/repository"
@@ -10,15 +11,15 @@ import (
 	"github.com/PlakarKorp/plakar/subcommands"
 )
 
-type ServicesAdd struct {
+type ServiceSet struct {
 	subcommands.SubcommandBase
 
 	Service string
 	Keys    map[string]string
 }
 
-func (cmd *ServicesAdd) Parse(ctx *appcontext.AppContext, args []string) error {
-	flags := flag.NewFlagSet("services add", flag.ExitOnError)
+func (cmd *ServiceSet) Parse(ctx *appcontext.AppContext, args []string) error {
+	flags := flag.NewFlagSet("service set", flag.ExitOnError)
 	flags.Usage = func() {
 		fmt.Fprintf(flags.Output(), "Usage: %s <name> <key>=<value>...\n", flags.Name())
 	}
@@ -42,16 +43,23 @@ func (cmd *ServicesAdd) Parse(ctx *appcontext.AppContext, args []string) error {
 	return nil
 }
 
-func (cmd *ServicesAdd) Execute(ctx *appcontext.AppContext, repo *repository.Repository) (int, error) {
+func (cmd *ServiceSet) Execute(ctx *appcontext.AppContext, repo *repository.Repository) (int, error) {
 	sc, err := getClient(ctx)
 	if err != nil {
 		return 1, err
 	}
 
-	if err := sc.SetServiceConfiguration(cmd.Service, cmd.Keys); err != nil {
+	if len(cmd.Keys) == 0 {
+		return 0, nil
+	}
+
+	config, err := sc.GetServiceConfiguration(cmd.Service)
+	if err != nil {
 		return 1, err
 	}
-	if err := sc.SetServiceStatus(cmd.Service, true); err != nil {
+
+	maps.Copy(config, cmd.Keys)
+	if err := sc.SetServiceConfiguration(cmd.Service, config); err != nil {
 		return 1, err
 	}
 

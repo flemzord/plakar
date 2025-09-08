@@ -25,37 +25,39 @@ import (
 	"github.com/PlakarKorp/plakar/subcommands"
 )
 
-type ServicesList struct {
+type ServiceDisable struct {
 	subcommands.SubcommandBase
+
+	Service string
 }
 
-func (cmd *ServicesList) Parse(ctx *appcontext.AppContext, args []string) error {
-	flags := flag.NewFlagSet("services list", flag.ExitOnError)
+func (cmd *ServiceDisable) Parse(ctx *appcontext.AppContext, args []string) error {
+	flags := flag.NewFlagSet("service disable", flag.ExitOnError)
 	flags.Usage = func() {
-		fmt.Fprintf(flags.Output(), "Usage: %s\n", flags.Name())
+		fmt.Fprintf(flags.Output(), "Usage: %s <name>\n", flags.Name())
 	}
 	flags.Parse(args)
 
-	if flags.NArg() > 0 {
-		return fmt.Errorf("invalid argument: %s", flags.Arg(0))
+	if flags.NArg() != 1 {
+		return fmt.Errorf("invalid number of arguments, expected 1 but got %d", flags.NArg())
 	}
+
+	cmd.Service = flags.Arg(0)
+	cmd.RepositorySecret = ctx.GetSecret()
 
 	return nil
 }
 
-func (cmd *ServicesList) Execute(ctx *appcontext.AppContext, repo *repository.Repository) (int, error) {
+func (cmd *ServiceDisable) Execute(ctx *appcontext.AppContext, repo *repository.Repository) (int, error) {
 	sc, err := getClient(ctx)
 	if err != nil {
 		return 1, err
 	}
 
-	list, err := sc.GetServiceList()
-	if err != nil {
+	if err := sc.SetServiceStatus(cmd.Service, false); err != nil {
 		return 1, err
 	}
-	for _, svc := range list {
-		fmt.Fprintf(ctx.Stdout, "%s\n", svc.Name)
-	}
+	fmt.Fprintf(ctx.Stdout, "disabled\n")
 
 	return 0, nil
 }
