@@ -8,7 +8,7 @@ require (
 	github.com/PlakarKorp/integration-grpc v1.0.7
 	github.com/PlakarKorp/integration-ptar v1.0.0
 	github.com/PlakarKorp/integration-stdio v1.0.0
-	github.com/PlakarKorp/kloset v1.0.4-0.20250908092717-c4481c3dd6b7
+	github.com/PlakarKorp/kloset v1.0.4
 	github.com/alecthomas/chroma v0.10.0
 	github.com/anacrolix/fuse v0.3.1
 	github.com/charmbracelet/bubbletea v1.3.6
