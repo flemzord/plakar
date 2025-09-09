@@ -188,7 +188,7 @@ The following commands are available:
 
 **pkg rm**
 
-> Unistall a plugin, documented in
+> Uninstall a plugin, documented in
 > plakar-pkg-rm(1).
 
 **restore**
