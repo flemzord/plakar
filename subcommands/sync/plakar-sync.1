@@ -15,6 +15,7 @@
 .Op Fl latest
 .Op Fl before Ar date
 .Op Fl since Ar date
+.Op Fl packfiles Ar path
 .Op Ar snapshotID
 .Cm to | from | with
 .Ar repository
@@ -61,6 +62,11 @@ Accepted formats include relative durations
 .Pq e.g. "2d" for two days, "1w" for one week
 or specific dates in various formats
 .Pq e.g. "2006-01-02 15:04:05" .
+.It Fl packfiles Ar path
+Path where to put the temporary packfiles instead of building them in memory.
+If the special value
+.Sq mem
+is specified then the packfiles are build in memory (the default value)
 .El
 .Pp
 The arguments are as follows:
