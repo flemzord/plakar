@@ -192,9 +192,9 @@ $ plakar create
 .Pp
 Create an encrypted Kloset store on AWS S3:
 .Bd -literal -offset indent
-$ plakar store add mys3bucket \\
+$ plakar store add mys3bucket \e
     location=s3://s3.eu-west-3.amazonaws.com/backups \e
-    access_key="access_key" \\
+    access_key="access_key" \e
     secret_access_key="secret_key"
 $ plakar at @mys3bucket create
 .Ed
