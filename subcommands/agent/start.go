@@ -63,6 +63,8 @@ func (cmd *AgentStart) Parse(ctx *appcontext.AppContext, args []string) error {
 	}
 
 	flags := flag.NewFlagSet("agent start", flag.ExitOnError)
+	flags.StringVar(&opt_logfile, "log", "", "log file")
+	flags.BoolVar(&opt_foreground, "foreground", false, "run in foreground")
 	flags.Usage = func() {
 		fmt.Fprintf(flags.Output(), "Usage: %s [OPTIONS]\n", flags.Name())
 		fmt.Fprintf(flags.Output(), "\nOPTIONS:\n")
