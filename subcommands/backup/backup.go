@@ -197,7 +197,7 @@ func (cmd *Backup) DoBackup(ctx *appcontext.AppContext, repo *repository.Reposit
 		} else {
 			// inherit all the options -- but the ones
 			// specified in the command line takes the
-			// precendence.
+			// precedence.
 			for k, v := range remote {
 				if _, found := cmd.Opts[k]; !found {
 					cmd.Opts[k] = v
