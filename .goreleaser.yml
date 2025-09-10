@@ -340,6 +340,16 @@ nfpms:
         file_info:
           mode: 0644
 
+      - src: ./subcommands/pkg/plakar-pkg-manifest.yaml.5
+        dst: /usr/share/man/man5/plakar-pkg-manifest.yaml.5
+        file_info:
+          mode: 0644
+
+      - src: ./subcommands/pkg/plakar-pkg-recipe.yaml.5
+        dst: /usr/share/man/man5/plakar-pkg-recipe.yaml.5
+        file_info:
+          mode: 0644
+
 homebrew_casks:
   - # Name of the cask
     #
@@ -392,6 +402,8 @@ homebrew_casks:
       - ./man/plakar-pkg-create.1
       - ./man/plakar-pkg-show.1
       - ./man/plakar.1
+      - ./man/plakar-pkg-manifest.yaml.5
+      - ./man/plakar-pkg-recipe.yaml.5
 
     # # Completions for different shells
     # #
