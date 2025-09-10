@@ -26,7 +26,7 @@ jobs:
         run: |
           dir=$(mktemp -d)
           find subcommands -type f -iname \*.[1-9] -exec cp {} "$dir" \;
-          cp plakar.1 "$dir"
+          cp plakar.1 plakar-locate.7 "$dir"
           cd "$dir"
           mandoc -Tlint -Wstyle -l *
           rm -rf "$dir"
