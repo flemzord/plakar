@@ -26,7 +26,7 @@ must be specified to filter the snapshots to delete.
 
 **plakar prune**
 supports the location flags documented in
-plakar-locate(7)
+plakar-query(7)
 to precisely select snapshots.
 
 # EXAMPLES
@@ -64,6 +64,6 @@ The **plakar-prune** utility exits&#160;0 on success, and&#160;&gt;0 if an error
 
 plakar(1),
 plakar-backup(1),
-plakar-locate(7)
+plakar-query(7)
 
 Plakar - September 10, 2025

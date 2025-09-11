@@ -22,7 +22,7 @@ IDs will be synchronized.
 
 **plakar sync**
 supports the location flags documented in
-plakar-locate(7)
+plakar-query(7)
 to precisely select snapshots.
 
 The options are as follows:
@@ -91,6 +91,6 @@ The **plakar-sync** utility exits&#160;0 on success, and&#160;&gt;0 if an error 
 # SEE ALSO
 
 plakar(1),
-plakar-locate(7)
+plakar-query(7)
 
 Plakar - September 10, 2025

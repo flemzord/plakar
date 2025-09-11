@@ -23,7 +23,7 @@ in a specified snapshot.
 In addition to the flags described below,
 **plakar ls**
 supports the location flags documented in
-plakar-locate(7)
+plakar-query(7)
 to precisely select snapshots.
 
 The options are as follows:
@@ -75,6 +75,6 @@ The **plakar-ls** utility exits&#160;0 on success, and&#160;&gt;0 if an error oc
 # SEE ALSO
 
 plakar(1),
-plakar-locate(7)
+plakar-query(7)
 
 Plakar - September 10, 2025
