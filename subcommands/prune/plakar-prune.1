@@ -3,9 +3,11 @@
 .Os
 .Sh NAME
 .Nm plakar-prune
-.Nd Remove snapshots from a Plakar repository
+.Nd Prune snapshots according to a policy
 .Sh SYNOPSIS
 .Nm plakar prune
+.Op Fl apply
+.Op Fl policy Ar name
 .Op Ar snapshotID ...
 .Sh DESCRIPTION
 The
@@ -25,6 +27,19 @@ must be specified to filter the snapshots to delete.
 supports the location flags documented in
 .Xr plakar-query 7
 to precisely select snapshots.
+.Pp
+The arguments are as follows:
+.Bl -tag -width Ds
+.It Fl apply
+Delete matching snapshot.
+The default is to just show the snapshot that would be removed but not
+actually execute the operation.
+.It Fl policy Ar name
+Use the given policy.
+See
+.Xr plakar-policy 1
+for how policies are managed.
+.El
 .Sh EXAMPLES
 Remove a specific snapshot by ID:
 .Bd -literal -offset indent
@@ -33,7 +48,7 @@ $ plakar prune abc123
 .Pp
 Remove snapshots older than 30 days:
 .Bd -literal -offset indent
-$ plakar prune -before 30d
+$ plakar prune -days 30d
 .Ed
 .Pp
 Remove snapshots with a specific tag:
@@ -43,7 +58,7 @@ $ plakar prune -tag daily-backup
 .Pp
 Remove snapshots older than 1 year with a specific tag:
 .Bd -literal -offset indent
-$ plakar prune -before 1y -tag daily-backup
+$ plakar prune -years 1 -tag daily-backup
 .Ed
 .Sh DIAGNOSTICS
 .Ex -std
@@ -57,4 +72,5 @@ snapshot.
 .Sh SEE ALSO
 .Xr plakar 1 ,
 .Xr plakar-backup 1 ,
+.Xr plakar-policy 1 ,
 .Xr plakar-query 7
