@@ -1,0 +1,138 @@
+.Dd September 10, 2025
+.Dt PLAKAR-QUERY 7
+.Os
+.Sh NAME
+.Nm plakar-query
+.Nd query flags shared among many Plakar subcommands
+.Sh DESCRIPTION
+What follows is a set of command line arguments that many
+.Xr plakar 1
+subcommands provide to filter snapshots.
+.Pp
+The flags may be combined to precisely select snapshots.
+.Pp
+The generic filters are as follows.
+These can be combined to express specific restrictions.
+For example,
+.Ql Fl before No 7d Fl tag No homelab
+selects snapshots done in the last seven days tagged with
+.Sq homelab .
+.Bl -tag -width tenletters
+.It Fl before Ar date
+Select snapshots older than given
+.Ar date .
+The date may be in RFC3339 format, as
+.Dq Ar YYYY Ns - Ns Ar mm Ns - Ns Ar DD Ar HH : Ns Ar MM ,
+.Dq Ar YYYY Ns - Ns Ar mm Ns - Ns Ar DD Ar HH : Ns Ar MM : Ns Ar SS ,
+.Dq Ar YYYY Ns - Ns Ar mm Ns - Ns Ar DD ,
+or
+.Dq Ar YYYY Ns / Ns Ar mm Ns / Ns Ar DD
+where
+.Ar YYYY
+is a year,
+.Ar mm
+a month,
+.Ar DD
+a day,
+.Ar HH
+a hour in 24 hour format number,
+.Ar MM
+minutes and
+.Ar SS
+the number of seconds.
+.Pp
+Alternatively, human-style intervals like
+.Dq half an hour ,
+.Dq a month
+or
+.Dq 2h30m
+are also accepted.
+.It Fl category Ar name
+Select snapshot whose category is
+.Ar name .
+.It Fl environment Ar name
+Select snapshot whose environment is
+.Ar name .
+.It Fl job Ar name
+Select snapshot whose job is
+.Ar name .
+.It Fl latest
+Select only the latest snapshot.
+.It Fl name Ar name
+Select snapshots whose name is
+.Ar name .
+.It Fl perimeter Ar name
+Select snapshots whose perimeter is
+.Ar name .
+.It Fl root Ar path
+Select snapshots whose root directory is
+.Ar path .
+May be specified multiple time, snapshots are selected if any of the
+given paths matches.
+.It Fl since Ar date
+Select snapshots newer than the given
+.Ar date .
+The accepted format is the same as
+.Fl before .
+.It Fl tag Ar name
+Select snapshots tagged with
+.Ar name .
+May be specified multiple times, and multiple tags may be given at the
+same time if comma-separated.
+.El
+.Pp
+Shorthands to express
+.Fl since
+are also provided:
+.Pp
+.Bl -tag -width Ds -compact -offset Ds
+.It Fl minutes Ar n
+.It Fl hours Ar n
+.It Fl days Ar n
+.It Fl weeks Ar n
+.It Fl months Ar n
+.It Fl years Ar n
+.El
+.Pp
+These selects only snapshots done in the last
+.Ar n
+days of the week, and only on those days.
+When combined, they select a snapshot when either condition is met.
+For example,
+.Ql Fl mondays No 3 Fl thuesdays No 5
+selects snapshots done in the last three mondays and in the last five
+thuesdays.
+.Pp
+.Bl -tag -width Ds -compact -offset Ds
+.It Fl mondays Ar n
+.It Fl thuesdays Ar n
+.It Fl wednesdays Ar n
+.It Fl thursdays Ar n
+.It Fl fridays Ar n
+.It Fl saturdays Ar n
+.It Fl sundays Ar n
+.El
+.Pp
+It's also possible to select at most
+.Ar n
+snapshot per unit of time.
+When combined, these also behave like additions and not restrictions,
+i.e.
+.Ql Fl per-month No 3 Fl per-monday No 5
+yields three snapshots per month and 5 per monday.
+.Pp
+.Bl -tag -width Ds -compact -offset Ds
+.It Fl per-minute Ar n
+.It Fl per-hour Ar n
+.It Fl per-day Ar n
+.It Fl per-week Ar n
+.It Fl per-month Ar n
+.It Fl per-year Ar n
+.It Fl per-monday Ar n
+.It Fl per-thuesday Ar n
+.It Fl per-wednesday Ar n
+.It Fl per-thursday Ar n
+.It Fl per-friday Ar n
+.It Fl per-saturday Ar n
+.It Fl per-sunday Ar n
+.El

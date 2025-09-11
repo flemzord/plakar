@@ -7,15 +7,6 @@ PLAKAR-SYNC(1) - General Commands Manual
 # SYNOPSIS
 
 **plakar&nbsp;sync**
-\[**-name**&nbsp;*name*]
-\[**-category**&nbsp;*category*]
-\[**-environment**&nbsp;*environment*]
-\[**-perimeter**&nbsp;*perimeter*]
-\[**-job**&nbsp;*job*]
-\[**-tag**&nbsp;*tag*]
-\[**-latest**]
-\[**-before**&nbsp;*date*]
-\[**-since**&nbsp;*date*]
 \[**-packfiles**&nbsp;*path*]
 \[*snapshotID*]
 **to**&nbsp;|&nbsp;**from**&nbsp;|&nbsp;**with**
@@ -29,59 +20,12 @@ command synchronize snapshots between two Plakar repositories.
 If a specific snapshot ID is provided, only snapshots with matching
 IDs will be synchronized.
 
+**plakar sync**
+supports the location flags documented in
+plakar-query(7)
+to precisely select snapshots.
+
 The options are as follows:
-
-**-name** *string*
-
-> Only synchronize snapshots matching
-> *name*.
-
-**-category** *string*
-
-> Only synchronize snapshots matching
-> *category*.
-
-**-environment** *string*
-
-> Only synchronize snapshots matching
-> *environment*.
-
-**-perimeter** *string*
-
-> Only synchronize snapshots matching
-> *perimeter*.
-
-**-job** *string*
-
-> Only synchronize snapshots matching
-> *job*.
-
-**-tag** *string*
-
-> Only synchronize snapshots matching
-> *tag*.
-
-**-latest**
-
-> Only synchronize the latest snapshot.
-
-**-before** *date*
-
-> Only synchronize snapshots older than
-> *before*.
-> Accepted formats include relative durations
-> (e.g. 2d for two days, 1w for one week)
-> or specific dates in various formats
-> (e.g. 2006-01-02 15:04:05).
-
-**-since** *date*
-
-> Only synchronize snapshots newer than
-> *since*.
-> Accepted formats include relative durations
-> (e.g. 2d for two days, 1w for one week)
-> or specific dates in various formats
-> (e.g. 2006-01-02 15:04:05).
 
 **-packfiles** *path*
 
@@ -146,6 +90,7 @@ The **plakar-sync** utility exits&#160;0 on success, and&#160;&gt;0 if an error 
 
 # SEE ALSO
 
-plakar(1)
+plakar(1),
+plakar-query(7)
 
-Plakar - August 6, 2025
+Plakar - September 10, 2025
