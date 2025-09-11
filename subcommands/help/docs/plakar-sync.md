@@ -16,6 +16,7 @@ PLAKAR-SYNC(1) - General Commands Manual
 \[**-latest**]
 \[**-before**&nbsp;*date*]
 \[**-since**&nbsp;*date*]
+\[**-packfiles**&nbsp;*path*]
 \[*snapshotID*]
 **to**&nbsp;|&nbsp;**from**&nbsp;|&nbsp;**with**
 *repository*
@@ -81,6 +82,13 @@ The options are as follows:
 > (e.g. 2d for two days, 1w for one week)
 > or specific dates in various formats
 > (e.g. 2006-01-02 15:04:05).
+
+**-packfiles** *path*
+
+> Path where to put the temporary packfiles instead of building them in memory.
+> If the special value
+> 'memory'
+> is specified then the packfiles are build in memory (the default value)
 
 The arguments are as follows:
 
