@@ -60,7 +60,7 @@ func (cmd *Sync) Parse(ctx *appcontext.AppContext, args []string) error {
 	}
 
 	cmd.SrcLocateOptions.InstallLocateFlags(flags)
-	flags.StringVar(&cmd.PackfileTempStorage, "packfiles", "mem", "mem or a path to a directory to store temporary packfiles")
+	flags.StringVar(&cmd.PackfileTempStorage, "packfiles", "memory", "memory or a path to a directory to store temporary packfiles")
 
 	flags.Parse(args)
 
@@ -172,7 +172,7 @@ func (cmd *Sync) Execute(ctx *appcontext.AppContext, repo *repository.Repository
 		return 1, fmt.Errorf("could not open peer store %s: %s", cmd.PeerRepositoryLocation, err)
 	}
 
-	if cmd.PackfileTempStorage != "mem" {
+	if cmd.PackfileTempStorage != "memory" {
 		tmpDir, err := os.MkdirTemp(cmd.PackfileTempStorage, "plakar-sync-"+repo.Configuration().RepositoryID.String()+"*")
 		if err != nil {
 			return 1, err

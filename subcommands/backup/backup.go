@@ -96,7 +96,7 @@ func (cmd *Backup) Parse(ctx *appcontext.AppContext, args []string) error {
 	flags.Var(&opt_tags, "tag", "comma-separated list of tags to apply to the snapshot")
 	flags.StringVar(&opt_ignore_file, "ignore-file", "", "path to a file containing newline-separated gitignore patterns, treated as -ignore")
 	flags.Var(&opt_ignore, "ignore", "gitignore pattern to exclude files, can be specified multiple times to add several exclusion patterns")
-	flags.StringVar(&cmd.PackfileTempStorage, "packfiles", "mem", "mem or a path to a directory to store temporary packfiles")
+	flags.StringVar(&cmd.PackfileTempStorage, "packfiles", "memory", "memory or a path to a directory to store temporary packfiles")
 	flags.BoolVar(&cmd.Quiet, "quiet", false, "suppress output")
 	flags.BoolVar(&cmd.Silent, "silent", false, "suppress ALL output")
 	flags.BoolVar(&cmd.OptCheck, "check", false, "check the snapshot after creating it")
@@ -218,7 +218,7 @@ func (cmd *Backup) DoBackup(ctx *appcontext.AppContext, repo *repository.Reposit
 		return 0, nil, objects.MAC{}, nil
 	}
 
-	if cmd.PackfileTempStorage != "mem" {
+	if cmd.PackfileTempStorage != "memory" {
 		tmpDir, err := os.MkdirTemp(cmd.PackfileTempStorage, "plakar-backup-"+repo.Configuration().RepositoryID.String()+"*")
 		if err != nil {
 			return 1, err, objects.NilMac, nil

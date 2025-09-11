@@ -80,7 +80,7 @@ The options are as follows:
 
 > Path where to put the temporary packfiles instead of building them in memory.
 > If the special value
-> 'mem'
+> 'memory'
 > is specified then the packfiles are build in memory (the default value)
 
 **-silent**
