@@ -29,7 +29,7 @@ will search in all snapshots.
 In addition to the flags described below,
 **plakar locate**
 supports the location flags documented in
-plakar-locate(7)
+plakar-query(7)
 to precisely select snapshots.
 
 The options are as follows:
@@ -64,7 +64,7 @@ The **plakar-locate** utility exits&#160;0 on success, and&#160;&gt;0 if an erro
 
 plakar(1),
 plakar-backup(1),
-plakar-locate(7)
+plakar-query(7)
 
 # CAVEATS
 
