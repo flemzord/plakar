@@ -8,6 +8,7 @@ require (
 	github.com/PlakarKorp/integration-grpc v1.0.14
 	github.com/PlakarKorp/integration-ptar v1.0.3
 	github.com/PlakarKorp/integration-stdio v1.0.2
+	github.com/PlakarKorp/integration-tar v1.0.0-beta.5
 	github.com/PlakarKorp/kloset v1.0.5
 	github.com/alecthomas/chroma v0.10.0
 	github.com/anacrolix/fuse v0.3.1
