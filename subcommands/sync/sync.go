@@ -336,7 +336,7 @@ func synchronize(ctx *appcontext.AppContext, srcRepository, dstRepository *repos
 	// overwrite the header, we want to keep the original snapshot info
 	dstSnapshot.Header = srcSnapshot.Header
 
-	if err := srcSnapshot.Synchronize(dstSnapshot); err != nil {
+	if err := srcSnapshot.Synchronize(dstSnapshot, true); err != nil {
 		return err
 	}
 
