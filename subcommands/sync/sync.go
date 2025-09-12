@@ -249,6 +249,7 @@ func (cmd *Sync) Execute(ctx *appcontext.AppContext, repo *repository.Repository
 		}
 	}
 
+	srcSynced := 0
 	for _, snapshotID := range srcSyncList {
 		if err := ctx.Err(); err != nil {
 			return 1, err
@@ -258,6 +259,8 @@ func (cmd *Sync) Execute(ctx *appcontext.AppContext, repo *repository.Repository
 		if err != nil {
 			ctx.GetLogger().Error("failed to synchronize snapshot %x from store %s: %s",
 				snapshotID[:4], srcLocation, err)
+		} else {
+			srcSynced++
 		}
 	}
 
@@ -274,6 +277,7 @@ func (cmd *Sync) Execute(ctx *appcontext.AppContext, repo *repository.Repository
 			}
 		}
 
+		dstSynced := 0
 		for _, snapshotID := range dstSyncList {
 			if err := ctx.Err(); err != nil {
 				return 1, err
@@ -282,22 +286,24 @@ func (cmd *Sync) Execute(ctx *appcontext.AppContext, repo *repository.Repository
 			if err != nil {
 				ctx.GetLogger().Error("failed to synchronize snapshot %x from peer store %s: %s",
 					snapshotID[:4], dstLocation, err)
+			} else {
+				dstSynced++
 			}
 		}
 		ctx.GetLogger().Info("sync: synchronization between %s and %s completed: %d snapshots synchronized",
 			srcLocation,
 			dstLocation,
-			len(srcSyncList)+len(dstSyncList))
+			srcSynced+dstSynced)
 	} else if cmd.Direction == "to" {
 		ctx.GetLogger().Info("sync: synchronization from %s to %s completed: %d snapshots synchronized",
 			srcLocation,
 			dstLocation,
-			len(srcSyncList))
+			srcSynced)
 	} else {
 		ctx.GetLogger().Info("sync: synchronization from %s to %s completed: %d snapshots synchronized",
 			dstLocation,
 			srcLocation,
-			len(srcSyncList))
+			srcSynced)
 	}
 
 	return 0, nil
