@@ -2,11 +2,13 @@ PLAKAR-PRUNE(1) - General Commands Manual
 
 # NAME
 
-**plakar-prune** - Remove snapshots from a Plakar repository
+**plakar-prune** - Prune snapshots according to a policy
 
 # SYNOPSIS
 
 **plakar&nbsp;prune**
+\[**-apply**]
+\[**-policy**&nbsp;*name*]
 \[*snapshotID&nbsp;...*]
 
 # DESCRIPTION
@@ -29,6 +31,21 @@ supports the location flags documented in
 plakar-query(7)
 to precisely select snapshots.
 
+The arguments are as follows:
+
+**-apply**
+
+> Delete matching snapshot.
+> The default is to just show the snapshot that would be removed but not
+> actually execute the operation.
+
+**-policy** *name*
+
+> Use the given policy.
+> See
+> plakar-policy(1)
+> for how policies are managed.
+
 # EXAMPLES
 
 Remove a specific snapshot by ID:
@@ -37,7 +54,7 @@ Remove a specific snapshot by ID:
 
 Remove snapshots older than 30 days:
 
-	$ plakar prune -before 30d
+	$ plakar prune -days 30d
 
 Remove snapshots with a specific tag:
 
@@ -45,7 +62,7 @@ Remove snapshots with a specific tag:
 
 Remove snapshots older than 1 year with a specific tag:
 
-	$ plakar prune -before 1y -tag daily-backup
+	$ plakar prune -years 1 -tag daily-backup
 
 # DIAGNOSTICS
 
@@ -64,6 +81,7 @@ The **plakar-prune** utility exits&#160;0 on success, and&#160;&gt;0 if an error
 
 plakar(1),
 plakar-backup(1),
+plakar-policy(1),
 plakar-query(7)
 
 Plakar - September 10, 2025
