@@ -15,6 +15,8 @@ github.com/PlakarKorp/integration-ptar v1.0.3 h1:a3KwDDkqU2l5iOBB9Q0mnl8wZM82U9J
 github.com/PlakarKorp/integration-ptar v1.0.3/go.mod h1:E0fUzfSgvga5R/pW/pJ0jaSZ86qt02y/ezhyIrsELyU=
 github.com/PlakarKorp/integration-stdio v1.0.2 h1:2/vLCHnPUHrqFuGvRPXZI7pslT4mFwA+aKO5g82yI1Q=
 github.com/PlakarKorp/integration-stdio v1.0.2/go.mod h1:Xb+b62hv5Fp33bzpsA/WHrGS8oTGjm7PKHnM2aSpJfs=
+github.com/PlakarKorp/integration-tar v1.0.0-beta.5 h1:FtjSH87MGZiAjpxpud9YK8dE1ev5bv7+c7HjXaWUHhE=
+github.com/PlakarKorp/integration-tar v1.0.0-beta.5/go.mod h1:Q0hzo8hNp0txGKFJpSNTFEfhw5Yeyd4yZQUIzrxMYxY=
 github.com/PlakarKorp/kloset v1.0.7 h1:dBLKH7rkJtBtQtNL5638sr07V7Hcr2z84R8CO4Ml9iA=
 github.com/PlakarKorp/kloset v1.0.7/go.mod h1:2PwpVRDRi7GSRLW0I6lvOR/W+4CrmqdXlPBMEYJWCSw=
 github.com/aclements/go-perfevent v0.0.0-20240301234650-f7843625020f h1:JjxwchlOepwsUWcQwD2mLUAGE9aCp0/ehy6yCHFBOvo=
