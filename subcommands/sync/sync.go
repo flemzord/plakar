@@ -334,8 +334,6 @@ func synchronize(ctx *appcontext.AppContext, srcRepository, dstRepository *repos
 		return err
 	}
 
-	err = dstSnapshot.Commit(nil, true)
-
 	ctx.GetLogger().Info("Synchronization of %x finished", snapshotID)
 	return err
 }
