@@ -10,45 +10,120 @@ What follows is a set of command line arguments that many
 plakar(1)
 subcommands provide to filter snapshots.
 
-The flags may be combined to precisely select snapshots.
+There are two kind of flags:
 
-The generic filters are as follows.
-These can be combined to express specific restrictions.
-For example,
-'`**-before** 7d **-tag** homelab`'
-selects snapshots done in the last seven days tagged with
-'homelab'.
+matchers
+
+> These allow to select snapshots.
+> If combined, the result is the union of the various matchers.
+
+filters
+
+> These instead filter the output of the matchers by yielding snapshots
+> matching only certain criterias.
+> If combined, the result is the intersection of the various filters.
+
+If no matcher is given, all the snapshots are implicitly selected,
+and then filtered according to the given filters, if any.
+
+The matchers are divided into:
+
+*	matchers that select snapshots from the last
+	*n*
+	unit of time:
+
+	**-minutes** *n*
+
+	**-hours** *n*
+
+	**-days** *n*
+
+	**-weeks** *n*
+
+	**-months** *n*
+
+	**-years** *n*
+
+	Or that selects snapshots that were done during the last
+	*n*
+	days of the week:
+
+	**-mondays** *n*
+
+	**-thuesdays** *n*
+
+	**-wednesdays** *n*
+
+	**-thursdays** *n*
+
+	**-fridays** *n*
+
+	**-saturdays** *n*
+
+	**-sundays** *n*
+
+*	matchers that select at most
+	*n*
+	snapshots per time period:
+
+	**-per-minute** *n*
+
+	**-per-hour** *n*
+
+	**-per-day** *n*
+
+	**-per-week** *n*
+
+	**-per-month** *n*
+
+	**-per-year** *n*
+
+	**-per-monday** *n*
+
+	**-per-thuesday** *n*
+
+	**-per-wednesday** *n*
+
+	**-per-thursday** *n*
+
+	**-per-friday** *n*
+
+	**-per-saturday** *n*
+
+	**-per-sunday** *n*
+
+The filters are:
 
 **-before** *date*
 
-	Select snapshots older than given
-	*date*.
-	The date may be in RFC3339 format, as
-	"*YYYY*-*mm*-*DD* *HH*:*MM*",
-	"*YYYY*-*mm*-*DD* *HH*:*MM*:*SS*",
-	"*YYYY*-*mm*-*DD*",
-	or
-	"*YYYY*/*mm*/*DD*"
-	where
-	*YYYY*
-	is a year,
-	*mm*
-	a month,
-	*DD*
-	a day,
-	*HH*
-	a hour in 24 hour format number,
-	*MM*
-	minutes and
-	*SS*
-	the number of seconds.
+> Select snapshots older than given
+> *date*.
+> The date may be in RFC3339 format, as
+> "*YYYY*-*mm*-*DD* *HH*:*MM*",
+> "*YYYY*-*mm*-*DD* *HH*:*MM*:*SS*",
+> "*YYYY*-*mm*-*DD*",
+> or
+> "*YYYY*/*mm*/*DD*"
+> where
+> *YYYY*
+> is a year,
+> *mm*
+> a month,
+> *DD*
+> a day,
+> *HH*
+> a hour in 24 hour format number,
+> *MM*
+> minutes and
+> *SS*
+> the number of seconds.
 
-	Alternatively, human-style intervals like
-	"half an hour",
-	"a month"
-	or
-	"2h30m"
-	are also accepted.
+> Alternatively, human-style intervals like
+> "half an hour",
+> "a month"
+> or
+> "2h30m"
+> are also accepted.
 
 **-category** *name*
 
@@ -99,78 +174,5 @@ selects snapshots done in the last seven days tagged with
 > *name*.
 > May be specified multiple times, and multiple tags may be given at the
 > same time if comma-separated.
-
-Shorthands to express
-**-since**
-are also provided:
-
-**-minutes** *n*
-
-**-hours** *n*
-
-**-days** *n*
-
-**-weeks** *n*
-
-**-months** *n*
-
-**-years** *n*
-
-These selects only snapshots done in the last
-*n*
-days of the week, and only on those days.
-When combined, they select a snapshot when either condition is met.
-For example,
-'`**-mondays** 3 **-thuesdays** 5`'
-selects snapshots done in the last three mondays and in the last five
-thuesdays.
-
-**-mondays** *n*
-
-**-thuesdays** *n*
-
-**-wednesdays** *n*
-
-**-thursdays** *n*
-
-**-fridays** *n*
-
-**-saturdays** *n*
-
-**-sundays** *n*
-
-It's also possible to select at most
-*n*
-snapshot per unit of time.
-When combined, these also behave like additions and not restrictions,
-i.e.
-'`**-per-month** 3 **-per-monday** 5`'
-yields three snapshots per month and 5 per monday.
-
-**-per-minute** *n*
-
-**-per-hour** *n*
-
-**-per-day** *n*
-
-**-per-week** *n*
-
-**-per-month** *n*
-
-**-per-year** *n*
-
-**-per-monday** *n*
-
-**-per-thuesday** *n*
-
-**-per-wednesday** *n*
-
-**-per-thursday** *n*
-
-**-per-friday** *n*
-
-**-per-saturday** *n*
-
-**-per-sunday** *n*
 
 Plakar - September 10, 2025
