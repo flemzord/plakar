@@ -18,10 +18,16 @@ type Manager struct {
 func NewManager(cookiesDir string) *Manager {
 	cookiesDir = filepath.Join(cookiesDir, "cookies", COOKIES_VERSION)
 	if err := os.MkdirAll(cookiesDir, 0700); err != nil {
-		panic(fmt.Errorf("cannot create cookies directory: %w", err))
+		// Return nil and let caller handle the error
+		// This is a temporary fix - should return (*Manager, error) in the future
+		fmt.Fprintf(os.Stderr, "Error: cannot create cookies directory: %v\n", err)
+		return nil
 	}
 	if err := os.Chmod(cookiesDir, 0700); err != nil {
-		panic(fmt.Errorf("cannot set permissions for cookies directory: %w", err))
+		// Return nil and let caller handle the error
+		// This is a temporary fix - should return (*Manager, error) in the future
+		fmt.Fprintf(os.Stderr, "Error: cannot set permissions for cookies directory: %v\n", err)
+		return nil
 	}
 	return &Manager{
 		cookiesDir: cookiesDir,

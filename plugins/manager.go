@@ -45,7 +45,7 @@ type Manager struct {
 
 	PackagesUrl string // Where prebuilt packages are retrieved from
 
-	pluginsMtx   sync.Mutex
+	pluginsMtx   sync.RWMutex // Changed to RWMutex for better read performance
 	plugins      map[Package]*Plugin  // list of loaded plugins
 	packages     Cache[[]Package]     // list of available packages
 	integrations Cache[[]Integration] // list of integrations
@@ -283,6 +283,7 @@ func (mgr *Manager) doLoadPlugins(ctx *kcontext.KContext) error {
 }
 
 func (mgr *Manager) checkIfPluginsNeedReload() (bool, error) {
+	// This is called with lock already held, so we directly access plugins
 	var loaded []Package
 	for pkg := range mgr.plugins {
 		loaded = append(loaded, pkg)
@@ -296,6 +297,27 @@ func (mgr *Manager) checkIfPluginsNeedReload() (bool, error) {
 	slices.SortFunc(installed, PackageCmp)
 
 	return !slices.Equal(loaded, installed), nil
+}
+
+// GetLoadedPlugins returns a list of currently loaded plugins (read-only operation)
+func (mgr *Manager) GetLoadedPlugins() []Package {
+	mgr.pluginsMtx.RLock()
+	defer mgr.pluginsMtx.RUnlock()
+
+	var loaded []Package
+	for pkg := range mgr.plugins {
+		loaded = append(loaded, pkg)
+	}
+	return loaded
+}
+
+// IsPluginLoaded checks if a specific plugin is currently loaded (read-only operation)
+func (mgr *Manager) IsPluginLoaded(pkg Package) bool {
+	mgr.pluginsMtx.RLock()
+	defer mgr.pluginsMtx.RUnlock()
+
+	_, exists := mgr.plugins[pkg]
+	return exists
 }
 
 func (mgr *Manager) LoadPlugins(ctx *kcontext.KContext) error {

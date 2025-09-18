@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"sync"
 	"sync/atomic"
 	"time"
 
@@ -15,6 +16,13 @@ import (
 )
 
 const PLAKAR_API_URL = "https://api.plakar.io/v1/reporting/reports"
+
+// reportPool provides a pool for Report objects to reduce allocations
+var reportPool = sync.Pool{
+	New: func() interface{} {
+		return &Report{}
+	},
+}
 
 type Emitter interface {
 	Emit(ctx context.Context, report *Report) error
@@ -66,6 +74,14 @@ func NewReporter(ctx *appcontext.AppContext) *Reporter {
 }
 
 func (reporter *Reporter) Process(report *Report) {
+	// Return report to pool after processing
+	defer func() {
+		// Clear sensitive data before returning to pool
+		report.logger = nil
+		report.reporter = nil
+		reportPool.Put(report)
+	}()
+
 	if report.ignore {
 		return
 	}
@@ -129,10 +145,20 @@ func (reporter *Reporter) getEmitter() Emitter {
 
 func (reporter *Reporter) NewReport() *Report {
 	reporter.reportCount.Add(1)
-	return &Report{
-		logger:   reporter.ctx.GetLogger(),
-		reporter: reporter.reports,
-	}
+
+	// Get report from pool to reduce allocations
+	report := reportPool.Get().(*Report)
+
+	// Reset report fields
+	report.logger = reporter.ctx.GetLogger()
+	report.reporter = reporter.reports
+	report.ignore = false
+	report.Timestamp = time.Time{}
+	report.Task = nil
+	report.Repository = nil
+	report.Snapshot = nil
+
+	return report
 }
 
 func (report *Report) SetIgnore() {

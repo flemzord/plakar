@@ -2,6 +2,7 @@ package subcommands
 
 import (
 	"fmt"
+	"os"
 	"slices"
 	"strings"
 
@@ -104,7 +105,9 @@ var subcommands []subcmd = make([]subcmd, 0)
 
 func Register(factory CmdFactory, flags CommandFlags, args ...string) {
 	if len(args) == 0 {
-		panic("can't register commands with zero arguments")
+		// Log error and return early instead of panic
+		fmt.Fprintf(os.Stderr, "Error: can't register commands with zero arguments\n")
+		return
 	}
 
 	subcommands = append(subcommands, subcmd{
