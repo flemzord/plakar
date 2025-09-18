@@ -110,6 +110,19 @@ func Register(factory CmdFactory, flags CommandFlags, args ...string) {
 		return
 	}
 
+	// Validate command arguments
+	for _, arg := range args {
+		if arg == "" {
+			fmt.Fprintf(os.Stderr, "Error: empty command argument not allowed\n")
+			return
+		}
+		// Basic validation to prevent injection
+		if strings.ContainsAny(arg, ";|&<>$`") {
+			fmt.Fprintf(os.Stderr, "Error: invalid characters in command argument: %s\n", arg)
+			return
+		}
+	}
+
 	subcommands = append(subcommands, subcmd{
 		args:    args,
 		nargs:   len(args),
